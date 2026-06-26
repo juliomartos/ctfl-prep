@@ -131,6 +131,37 @@
   .term-body .trap{display:block;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);color:var(--amber)}
   .empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
 
+  /* ---- Syllabus ---- */
+  .syl-intro{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:14px}
+  .syl-intro h3{font:600 13px var(--sans);margin:0 0 9px}
+  .syl-intro p{font-size:12.5px;color:var(--muted);margin:7px 0}
+  .syl-intro .src{font:500 10.5px var(--mono);color:var(--line);margin-top:11px}
+  .k{display:inline-block;font:600 10px var(--mono);border-radius:4px;padding:1px 5px;margin:0 1px}
+  .k.k1{color:var(--accent);background:rgba(86,182,242,.14)}
+  .k.k2{color:var(--amber);background:rgba(242,183,101,.14)}
+  .k.k3{color:var(--pass);background:rgba(63,201,136,.16)}
+  .chap{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;overflow:hidden}
+  .chap-hd{display:flex;align-items:center;gap:12px;padding:14px 15px;cursor:pointer;user-select:none}
+  .chap-num{width:30px;height:30px;flex:none;border-radius:8px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;font:700 14px var(--mono);color:var(--accent)}
+  .chap-meta{flex:1;min-width:0}
+  .chap-meta .ttl{font:600 13.5px/1.3 var(--sans)}
+  .chap-meta .time{font:500 11px var(--mono);color:var(--muted);margin-top:3px}
+  .chap .chev{color:var(--muted);transition:transform .25s;flex:none}
+  .chap.open .chev{transform:rotate(90deg)}
+  .chap-body{display:none;padding:2px 15px 14px}
+  .chap.open .chap-body{display:block}
+  .kw{font-size:12px;color:var(--muted);background:var(--surface-alt);border-radius:8px;padding:9px 11px;margin:6px 0 12px;line-height:1.6}
+  .kw b{color:var(--text);font-family:var(--mono);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
+  .los{margin:0 0 14px;padding:0;list-style:none}
+  .los li{display:flex;gap:8px;align-items:baseline;padding:4px 0;font-size:12.5px;border-top:1px solid var(--line)}
+  .los li:first-child{border-top:none}
+  .los .code{font:600 10.5px var(--mono);color:var(--muted);flex:none;white-space:nowrap}
+  .sec{margin-bottom:13px}
+  .sec h4{font:600 12.5px var(--sans);color:var(--accent);margin:0 0 6px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+  .sec ul{margin:0;padding-left:16px}
+  .sec li{font-size:13px;margin:5px 0;color:#D2DBE6}
+  .sec li b{color:var(--text)}
+
   /* ---- Bottom nav ---- */
   nav.tabs{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));
     padding-bottom:env(safe-area-inset-bottom);background:rgba(25,34,46,.94);backdrop-filter:blur(12px);
@@ -217,6 +248,21 @@
       <div id="terms"></div>
       <div class="empty" id="noResults" style="display:none">Nenhum termo encontrado.</div>
     </section>
+
+    <!-- SYLLABUS -->
+    <section class="view" id="view-syllabus">
+      <div class="syl-intro">
+        <h3>Syllabus CTFL v4.0 — notas de estudo</h3>
+        <p>Resumo dos 6 capítulos examináveis, com palavras-chave e objetivos de aprendizagem. Níveis cognitivos: <b class="k k1">K1</b> lembrar · <b class="k k2">K2</b> compreender · <b class="k k3">K3</b> aplicar. O minuto ao lado do capítulo indica o peso na prova.</p>
+        <p class="src">Notas derivadas do syllabus oficial · © ISTQB® / BSTQB® CTFL v4.0</p>
+      </div>
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="sylSearch" type="text" placeholder="Buscar no syllabus (ex.: BVA, regressão, risco)…" autocomplete="off">
+      </div>
+      <div id="syllabus"></div>
+      <div class="empty" id="sylNoResults" style="display:none">Nada encontrado no syllabus.</div>
+    </section>
   </main>
 </div>
 
@@ -229,6 +275,9 @@
   </button>
   <button data-view="termos">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Termos
+  </button>
+  <button data-view="syllabus">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a3 3 0 0 1 4 3 3 3 0 0 1 4-3h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a2 2 0 0 0-2 2 2 2 0 0 0-2-2z"/></svg>Syllabus
   </button>
 </nav>
 
@@ -304,6 +353,61 @@ const TERMS = [
   {g:"Os 7 princípios", items:[
     {n:"Os 7 princípios do teste", b:"1. Teste mostra a presença de defeitos, não a ausência.\n2. Teste exaustivo é impossível.\n3. Teste antecipado economiza (shift-left).\n4. Agrupamento de defeitos (Pareto).\n5. Paradoxo do pesticida (varie/atualize os testes).\n6. Teste depende do contexto.\n7. Falácia da ausência de erros (sem bugs ainda pode ser inútil).", t:"#1 (o que o teste prova) ≠ #7 (produto certo). Parecem iguais, não são."},
   ]},
+];
+
+const SYLLABUS = [
+  {n:1, ttl:"Fundamentos de Teste", time:"180 min",
+   kw:"cobertura, depuração, defeito, erro, falha, qualidade, garantia de qualidade (QA), causa-raiz, análise de teste, base de teste, caso de teste, condição de teste, dados de teste, modelagem de teste, execução de teste, objeto de teste, objetivo de teste, planejamento de teste, procedimento de teste, testware, validação, verificação",
+   los:[["1.1.1","K1","Identificar objetivos típicos de teste"],["1.1.2","K2","Diferenciar teste de depuração"],["1.2.1","K2","Exemplificar por que os testes são necessários"],["1.2.2","K1","Relembrar a relação entre testes e QA"],["1.2.3","K2","Distinguir causa-raiz, erro, defeito e falha"],["1.3.1","K2","Explicar os 7 princípios"],["1.4.1","K2","Resumir atividades e tarefas de teste"],["1.4.2","K2","Explicar o impacto do contexto"],["1.4.3","K2","Diferenciar testware"],["1.4.4","K2","Explicar o valor da rastreabilidade"],["1.4.5","K2","Comparar os papéis no teste"],["1.5.1","K2","Exemplos de habilidades genéricas"],["1.5.2","K1","Vantagens da equipe completa"],["1.5.3","K2","Benefícios e desvantagens da independência"]],
+   secs:[
+     {h:"1.1 O que é teste?", li:["Teste = conjunto de atividades para descobrir defeitos e avaliar a qualidade dos artefatos (os <b>objetos de teste</b>). Não é só execução.","Envolve <b>verificação</b> (atende à especificação?) E <b>validação</b> (atende à necessidade real?).","Pode ser <b>dinâmico</b> (executa o software) ou <b>estático</b> (não executa: revisões + análise estática). É atividade intelectual.","Objetivos típicos: avaliar produtos de trabalho, detectar falhas/defeitos, garantir cobertura, reduzir risco, verificar requisitos e conformidade, informar stakeholders, criar confiança, validar.","<b>Teste ≠ depuração.</b> Depuração (atividade de dev): reproduzir → diagnosticar (causa-raiz) → corrigir. Depois vêm os testes de confirmação e regressão."]},
+     {h:"1.2 Por que testar? · QA vs QC", li:["Teste é uma forma de <b>controle de qualidade (QC)</b> — corretivo, orientado a produto.","<b>QA</b> = preventivo, orientado a processo (bom processo → bom produto), responsabilidade de todos. Resultados de teste alimentam QA e QC.","<b>Cadeia:</b> humano comete ERRO (equívoco) → insere DEFEITO (bug) → que, ao executar, causa FALHA. Nem todo defeito vira falha. Causa-raiz = motivo fundamental."]},
+     {h:"1.3 Os 7 princípios", li:["1. Mostra presença, não ausência de defeitos. 2. Teste exaustivo é impossível. 3. Teste antecipado economiza (shift-left). 4. Defeitos se agrupam (Pareto). 5. Testes se degradam (paradoxo do pesticida). 6. Depende do contexto. 7. Falácia da ausência de defeitos."]},
+     {h:"1.4 Atividades, testware e papéis", li:["<b>Processo de teste:</b> Planejamento · Monitoramento e Controle · Análise (\"o quê testar?\") · Modelagem (\"como testar?\") · Implementação · Execução · Conclusão. Iterativas/paralelas.","O <b>contexto</b> influencia tudo (stakeholders, equipe, domínio, técnica, restrições, SDLC, ferramentas).","<b>Testware</b> = produtos de trabalho das atividades (planos, casos, scripts, dados, registros, relatórios).","<b>Rastreabilidade</b> base↔testware: avalia cobertura, impacto de mudanças, auditorias, relatórios claros.","<b>Papéis:</b> gerenciamento de teste (planejar, monitorar/controlar, concluir) e testador (analisar, modelar, implementar, executar)."]},
+     {h:"1.5 Habilidades e práticas", li:["Habilidades: conhecimento de teste, atenção/meticulosidade, comunicação, pensamento analítico/crítico, conhecimento técnico e do domínio. Testador é portador de más notícias → comunicar de forma construtiva.","<b>Equipe completa</b> (whole-team, do XP): qualquer membro faz qualquer tarefa, todos responsáveis pela qualidade, colocalização. Nem sempre adequada (ex.: segurança crítica).","<b>Independência:</b> autor (nenhuma) → colegas (alguma) → fora da equipe (alta) → fora da org (muito alta). Benefício: vieses diferentes acham mais defeitos. Risco: isolamento, devs perdem senso de qualidade, virar gargalo."]},
+   ]},
+  {n:2, ttl:"Testes ao longo do SDLC", time:"130 min",
+   kw:"teste de aceite, caixa-preta, caixa-branca, teste de componente, integração de componentes, integração de sistemas, teste de sistema, teste de confirmação, teste funcional, teste não funcional, teste de regressão, teste de manutenção, shift-left, nível de teste, tipo de teste",
+   los:[["2.1.1","K2","Impacto do SDLC nos testes"],["2.1.2","K1","Boas práticas para todos os SDLC"],["2.1.3","K1","Abordagens que priorizam o teste"],["2.1.4","K2","Impacto do DevOps"],["2.1.5","K2","Explicar shift-left"],["2.1.6","K2","Retrospectivas como melhoria"],["2.2.1","K2","Distinguir níveis de teste"],["2.2.2","K2","Distinguir tipos de teste"],["2.2.3","K2","Confirmação × regressão"],["2.3.1","K2","Teste de manutenção e acionadores"]],
+   secs:[
+     {h:"2.1 Testes no contexto do SDLC", li:["SDLC: sequencial (cascata, V), iterativo (espiral, prototipagem), incremental. Práticas: ATDD, BDD, DDD, XP, FDD, Kanban, Lean, Scrum, TDD.","Impacto do SDLC: escopo/cronograma, detalhe da doc, técnicas, extensão da automação, papel do testador.","<b>Teste como motivador:</b> TDD (teste→código→refatora), ATDD (testes dos critérios de aceite), BDD (Given/When/Then). Todos são shift-left.","<b>DevOps:</b> dev+ops juntos, CI/CD. Benefícios: feedback rápido, shift-left, ambientes estáveis, regressão automatizada. Teste manual (visão do usuário) ainda necessário.","<b>Shift-left:</b> testar mais cedo (revisar specs, escrever testes antes do código, CI, análise estática). Custo inicial maior, economia depois.","<b>Retrospectivas:</b> o que foi bem? o que melhorar? como incorporar? Melhoram eficácia, qualidade do testware, cooperação."]},
+     {h:"2.2 Níveis e Tipos", li:["<b>5 NÍVEIS</b> (o \"quando\"): Componente (unidade) → Integração de Componentes → Sistema → Integração de Sistema → Aceite (UAT, operacional, contratual/normativo, alfa, beta).","<b>4 TIPOS</b> (o \"foco\"): Funcional (\"o quê\"), Não Funcional (\"quão bem\" — ISO 25010: performance, compatibilidade, usabilidade, confiabilidade, segurança, manutenibilidade, portabilidade), Caixa-Preta (especificação), Caixa-Branca (estrutura). Todos os tipos em todos os níveis.","<b>Confirmação</b> (reteste): confirma que o defeito foi corrigido. <b>Regressão:</b> confirma que a mudança não causou efeito adverso — forte candidato à automação."]},
+     {h:"2.3 Manutenção", li:["Categorias: corretiva, adaptativa, melhoria. Análise de impacto antes da mudança.","Acionadores: modificações (melhorias, correções, hot fixes), atualizações/migrações de ambiente, aposentadoria (arquivamento de dados).","Escopo depende de: risco da mudança, tamanho do sistema, tamanho da mudança."]},
+   ]},
+  {n:3, ttl:"Teste Estático", time:"80 min",
+   kw:"anomalia, teste dinâmico, revisão formal, revisão informal, inspeção, revisão, análise estática, teste estático, revisão técnica, walkthrough",
+   los:[["3.1.1","K1","Produtos examináveis por teste estático"],["3.1.2","K2","Explicar o valor do teste estático"],["3.1.3","K2","Comparar estático × dinâmico"],["3.2.1","K1","Benefícios do feedback antecipado"],["3.2.2","K2","Resumir atividades da revisão"],["3.2.3","K1","Responsabilidades dos papéis"],["3.2.4","K2","Comparar tipos de revisão"],["3.2.5","K1","Fatores de sucesso"]],
+   secs:[
+     {h:"3.1 Noções básicas", li:["<b>Estático = sem executar.</b> Exame manual (revisões) ou ferramenta (análise estática). Serve verificação E validação.","Examináveis: quase tudo (requisitos, código, planos/casos, backlog, contratos, modelos). Revisão = qualquer coisa legível; análise estática precisa de estrutura formal.","<b>Valor:</b> acha defeitos cedo, acha o que o dinâmico não acha (código inacessível, artefatos não executáveis), cria confiança, reduz custo geral.","Estático acha defeitos <b>diretamente</b>; dinâmico causa falhas das quais se deduz o defeito.","Defeitos típicos do estático: ambiguidade/omissão em requisitos, projeto, certos de codificação, desvios de padrões, interface, vulnerabilidades (buffer overflow)."]},
+     {h:"3.2 Processo de revisão", li:["<b>Atividades (ISO 20246):</b> Planejamento → Início → Revisão individual → Comunicação e análise de problemas → Correção e relatório.","<b>Papéis:</b> Gerente (decide o quê, dá recursos), Autor (cria/corrige), Moderador (conduz a reunião), Relator (registra), Revisor (revisa), Líder (responsabilidade geral).","<b>Tipos (informal → formal):</b> Informal (sem processo). Walkthrough (conduzido pelo <b>autor</b>). Revisão técnica (revisores qualificados + moderador, consenso técnico). Inspeção (mais formal, processo completo, métricas; autor não pode ser líder nem relator).","Sucesso: objetivos claros (nunca avaliar pessoas), tipo adequado, partes pequenas, feedback, tempo de preparo, apoio da gerência, treinamento."]},
+   ]},
+  {n:4, ttl:"Análise e Modelagem de Teste", time:"390 min",
+   kw:"critérios de aceite, ATDD, técnica caixa-preta, análise de valor de limite (BVA), cobertura de ramificação, teste baseado em checklist, item de cobertura, tabela de decisão, particionamento de equivalência (EP), suposição de erro, teste exploratório, transição de estado, cobertura de instrução, técnica caixa-branca",
+   los:[["4.1.1","K2","Distinguir caixa-preta/branca/experiência"],["4.2.1","K3","Usar particionamento de equivalência"],["4.2.2","K3","Usar análise de valor limite"],["4.2.3","K3","Usar tabela de decisão"],["4.2.4","K3","Usar transição de estado"],["4.3.1","K2","Explicar teste de instrução"],["4.3.2","K2","Explicar teste de ramificação"],["4.3.3","K2","Valor do caixa-branca"],["4.4.1","K2","Suposição de erro"],["4.4.2","K2","Teste exploratório"],["4.4.3","K2","Teste por checklist"],["4.5.1","K2","Escrita colaborativa de histórias"],["4.5.2","K2","Critérios de aceite"],["4.5.3","K3","Usar ATDD para derivar casos"]],
+   secs:[
+     {h:"4.1 Visão geral", li:["<b>Caixa-preta</b> = especificação (independe da implementação). <b>Caixa-branca</b> = estrutura/código (só após implementar). <b>Experiência</b> = conhecimento do testador (complementar)."]},
+     {h:"4.2 Caixa-Preta (todas K3 — pratique!)", li:["<b>EP:</b> divide dados em partições processadas igualmente; 1 teste por partição basta. Partições válidas e inválidas. <i>Each Choice Coverage</i>: cada partição de cada conjunto ≥1x.","<b>BVA:</b> testa os limites das partições (só ordenadas). 2-valores = limite + vizinho da partição adjacente. 3-valores = limite + 2 vizinhos (mais rigoroso). Ex.: \"se(x≤10)\" virou \"se(x=10)\" → só x=9 (3-valores) pega.","<b>Tabela de decisão:</b> combinações de condições → ações. Notação V/F/-/N/A; ação X/branco. Cobertura = colunas viáveis executadas. Boa p/ regras de negócio.","<b>Transição de estado:</b> estados + transições (evento [guarda]/ação). Cobertura: todos os estados (mais fraca) < transições válidas (0-switch, mais usada) < todas as transições (válidas + tenta inválidas; mínimo p/ segurança crítica)."]},
+     {h:"4.3 Caixa-Branca", li:["<b>Instrução (statement):</b> % de instruções executáveis exercidas. Não garante toda decisão.","<b>Ramificação (branch):</b> % de ramos exercidos (T/F de if, switch, loop). <b>100% branch ⊃ 100% statement, mas NÃO o contrário.</b> Branch é mais forte.","Valor: considera toda a implementação. Fraqueza: não acha requisitos não implementados."]},
+     {h:"4.4 Baseadas na experiência", li:["<b>Suposição de erro:</b> prever erros/defeitos com base em experiência (como o app falhou antes, erros típicos). \"Ataques a falhas\" = versão metódica.","<b>Exploratório:</b> modelar/executar/avaliar ao mesmo tempo enquanto aprende. Session-based (carta de teste, tempo definido). Útil com poucas specs ou pressão de tempo.","<b>Checklist:</b> cobre condições de uma lista (perguntas). Listas se degradam → atualizar. Mais variabilidade, menos repetibilidade."]},
+     {h:"4.5 Colaboração", li:["<b>Histórias:</b> 3C — Cartão, Conversa, Confirmação (critérios de aceite). \"Como [ator], quero [meta], para [valor]\". <b>INVEST</b>: Independente, Negociável, Valiosa, Estimável, pequena (Small), Testável.","<b>Critérios de aceite:</b> condições para aceitar a história = condições de teste. Formatos: cenário (Given/When/Then) ou regras.","<b>ATDD</b> (K3): testes antes de implementar, por equipe multi-perspectiva. Workshop de especificação → casos (positivos → negativos → não funcionais). Não ir além da história; sem duplicar."]},
+   ]},
+  {n:5, ttl:"Gerenciamento das Atividades de Teste", time:"335 min",
+   kw:"gerenciamento de defeitos, relatório de defeitos, critérios de entrada, critérios de saída, risco de produto, risco de projeto, nível de risco, teste baseado em risco, abordagem de teste, relatório de conclusão, controle/monitoramento de teste, plano de teste, pirâmide de teste, quadrantes de teste",
+   los:[["5.1.1","K2","Finalidade e conteúdo do plano de teste"],["5.1.2","K1","Valor do testador no planejamento"],["5.1.3","K2","Critérios de entrada × saída"],["5.1.4","K3","Usar técnicas de estimativa"],["5.1.5","K3","Aplicar priorização de casos"],["5.1.6","K1","Pirâmide de teste"],["5.1.7","K2","Quadrantes de teste"],["5.2.1","K1","Nível de risco = prob. × impacto"],["5.2.2","K2","Risco de projeto × produto"],["5.2.3","K2","Análise de risco do produto"],["5.2.4","K2","Controle de risco do produto"],["5.3.1","K1","Métricas de teste"],["5.3.2","K2","Relatórios de teste"],["5.3.3","K2","Comunicar status"],["5.4.1","K2","Gerenciamento de configuração"],["5.5.1","K3","Preparar relatório de defeitos"]],
+   secs:[
+     {h:"5.1 Planejamento", li:["Plano de teste: documenta meios/cronograma, garante critérios, comunica. Conteúdo: contexto, premissas, stakeholders, comunicação, registro de riscos, abordagem, orçamento/cronograma.","<b>Entrada</b> (pré-condições: recursos, testware, smoke ok) × <b>Saída</b> (cobertura, defeitos abertos, testes executados). Tempo/orçamento esgotado é saída válida. Ágil: <b>DoR</b> (entrada), <b>DoD</b> (saída).","<b>Estimativa (K3):</b> índices/proporções (histórico, ex.: 3:2 dev:teste); extrapolação; Wideband Delphi (Planning Poker); <b>três pontos</b>: E=(o+4m+p)/6, SD=(p−o)/6.","<b>Priorização (K3):</b> por risco, por cobertura, por requisitos. Dependências podem forçar outra ordem.","<b>Pirâmide:</b> base = testes pequenos/rápidos (muitos); topo = end-to-end (poucos).","<b>Quadrantes</b> (Marick): Q1 tec/equipe (componente, CI); Q2 negócio/equipe (funcional, API); Q3 negócio/produto (exploratório, UAT, manual); Q4 tec/produto (smoke, não funcional)."]},
+     {h:"5.2 Risco", li:["<b>Nível de risco = Probabilidade × Impacto.</b> Teste baseado em risco usa análise + controle.","<b>Projeto</b> (gestão: pessoal, prazo, fornecedores) → impacta cronograma/orçamento/escopo. <b>Produto</b> (qualidade: funcionalidade errada, performance, segurança) → insatisfação, perda de receita, danos, até morte.","<b>Análise</b> = identificação (lista abrangente) + avaliação (categorizar, prob/impacto/nível, priorizar). Quantitativa (prob×impacto) ou qualitativa (matriz). Influencia escopo, níveis, técnicas, esforço.","<b>Controle</b> = mitigação + monitoramento. Respostas: mitigar (testando), aceitar, transferir, contingência."]},
+     {h:"5.3 Monitoramento, Controle, Conclusão", li:["<b>Monitorar:</b> coletar info p/ avaliar progresso/critérios. <b>Controlar:</b> ações corretivas (repriorizar, ajustar cronograma). <b>Concluir:</b> consolidar experiência em marcos.","<b>Métricas:</b> progresso (casos executados/passados/falhados), qualidade do produto, defeitos, risco residual, cobertura, custo.","<b>Relatórios:</b> progresso (durante, regular) e conclusão (resumo, desvios, riscos não mitigados, lições). Público diferente → formalidade diferente.","Comunicar: verbal, painéis (CI/CD, burn-down), email/chat, doc online, relatórios formais."]},
+     {h:"5.4 Gerenciamento de Configuração (CM)", li:["Identifica/controla/rastreia produtos de trabalho como itens de configuração. <b>Baseline</b> = item aprovado, só muda por controle formal. Permite reverter e reproduzir resultados. Geralmente automatizado no pipeline DevOps."]},
+     {h:"5.5 Gerenciamento de Defeitos", li:["Fluxo da descoberta ao fechamento + classificação. Anomalia pode virar defeito ou não (falso positivo, change request).","<b>Relatório de defeito (K3) contém:</b> id único, título, data/autor, objeto e ambiente, contexto, descrição da falha (passos/logs/screenshots), esperado × real, <b>severidade</b> (impacto), <b>prioridade</b> (correção), status (aberto/adiado/duplicado/aguardando/reaberto/fechado/rejeitado), referências."]},
+   ]},
+  {n:6, ttl:"Ferramentas de Teste", time:"20 min",
+   kw:"automação de testes",
+   los:[["6.1.1","K2","Como os tipos de ferramenta apoiam os testes"],["6.2.1","K1","Benefícios e riscos da automação"]],
+   secs:[
+     {h:"6.1 Suporte de ferramentas", li:["Tipos: gerenciamento (SDLC, requisitos, defeitos, config); teste estático; projeto/implementação (gera casos/dados); execução/cobertura; não funcional; DevOps (CI/CD); colaboração; escalabilidade (VMs, containers); qualquer outra (até planilha)."]},
+     {h:"6.2 Automação — benefícios × riscos", li:["<b>Benefícios:</b> economia de tempo (menos repetição), consistência/repetibilidade, avaliação objetiva (cobertura), acesso a info, execução mais rápida, mais tempo p/ testes melhores.","<b>Riscos:</b> expectativas irreais, estimativas imprecisas, automatizar onde manual é melhor, confiar demais (ignorar pensamento crítico), dependência do fornecedor, open source abandonado, incompatibilidade de plataforma."]},
+   ]},
 ];
 
 /* ---------- progress state ---------- */
@@ -426,6 +530,34 @@ function renderTerms(filter=""){
 }
 document.getElementById("termSearch").addEventListener("input",e=>renderTerms(e.target.value));
 
+/* ---------- syllabus ---------- */
+function renderSyllabus(filter=""){
+  const f=filter.trim().toLowerCase();
+  const host=document.getElementById("syllabus"); host.innerHTML="";
+  let any=false;
+  SYLLABUS.forEach(ch=>{
+    const blob=(ch.ttl+" "+ch.kw+" "+ch.los.map(l=>l[2]).join(" ")+" "+ch.secs.map(s=>s.h+" "+s.li.join(" ")).join(" ")).toLowerCase();
+    if(f && !blob.includes(f)) return;
+    any=true;
+    const el=document.createElement("div"); el.className="chap"+(f?" open":"");
+    el.innerHTML=`
+      <div class="chap-hd">
+        <div class="chap-num">${ch.n}</div>
+        <div class="chap-meta"><div class="ttl">${ch.ttl}</div><div class="time">${ch.time} de estudo</div></div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="chap-body">
+        <div class="kw"><b>Palavras-chave</b>${ch.kw}</div>
+        <ul class="los">${ch.los.map(l=>`<li><span class="code">${l[0]}</span><span class="k ${l[1].toLowerCase()}">${l[1]}</span><span>${l[2]}</span></li>`).join("")}</ul>
+        ${ch.secs.map(s=>`<div class="sec"><h4>${s.h}</h4><ul>${s.li.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("")}
+      </div>`;
+    el.querySelector(".chap-hd").addEventListener("click",()=>el.classList.toggle("open"));
+    host.appendChild(el);
+  });
+  document.getElementById("sylNoResults").style.display=any?"none":"block";
+}
+document.getElementById("sylSearch").addEventListener("input",e=>renderSyllabus(e.target.value));
+
 /* ---------- nav ---------- */
 document.querySelectorAll("nav.tabs button").forEach(btn=>{
   btn.addEventListener("click",()=>{
@@ -440,7 +572,7 @@ document.querySelectorAll("nav.tabs button").forEach(btn=>{
 /* ---------- init ---------- */
 const examFmt=EXAM.toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});
 document.getElementById("examDate").textContent=examFmt;
-renderDash(); renderWeeks(); renderTerms();
+renderDash(); renderWeeks(); renderTerms(); renderSyllabus();
 </script>
 </body>
 </html>
